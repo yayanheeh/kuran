@@ -1,55 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-</head>
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">WebSiteName</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Page 1-1</a></li>
-            <li><a href="#">Page 1-2</a></li>
-            <li><a href="#">Page 1-3</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Page 2</a></li>
-        <li><a href="#">Page 3</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-  
-
-<script>
-    var me = document.currentScript.ownerDocument;
-    var post = me.querySelector( '#template-content' );
-
-    var container = document.querySelectorAll( '.template-container' );
-
-    //alert( container.length );
-    for(i=0; i<container.length ; i++) {
-        container[i].appendChild( post.cloneNode( true ) );
-    }
-</script>
+<script>var murottalAudioElement=document.createElement('Audio');var previousPlayedButton=null;var murottalLoopMode='noloop';var ayahSelection=[];var afterAudioDoneCallback=function(e){var surahNumber=e.target.myCustomData.surahNumber;var ayahNumber=e.target.myCustomData.ayahNumber;var audioButton=e.target.myCustomData.audioButton;audioButton.innerHTML='<span class="icon-content">&#x25b6;</span>';murottalAudioElement.loop=false;if(murottalLoopMode==='surah'){if(audioButton.getAttribute('data-from-tafsir-page')=="1"){return;}
+var nextAyah=audioButton.getAttribute('data-next-ayah-number');if(audioButton.getAttribute('data-is-last-ayah')=="1"){nextAyah=1;}
+document.getElementById('audio-'+surahNumber+'-'+nextAyah).click();if(window.location.hash.indexOf('#sidepage')==-1){window.location.href='#no'+nextAyah;}}
+if(murottalLoopMode==='ayah-selection'){if(audioButton.getAttribute('data-from-tafsir-page')=="1"){return;}
+var currentIndexPosition=ayahSelection.indexOf(parseInt(ayahNumber));var nextAyah=ayahSelection[currentIndexPosition+1];if(currentIndexPosition+1===ayahSelection.length){nextAyah=ayahSelection[0];}
+if(document.getElementById('audio-'+surahNumber+'-'+nextAyah)===null){return;}
+document.getElementById('audio-'+surahNumber+'-'+nextAyah).click();if(window.location.hash.indexOf('#sidepage')==-1){window.location.href='#no'+nextAyah;}}}
+if(!String.prototype.padStart){String.prototype.padStart=function padStart(targetLength,padString){var targetLength=targetLength>>0;var padString=String(typeof padString!=='undefined'?padString:' ');if(this.length>=targetLength){return String(this);}else{targetLength=targetLength-this.length;var prefix='';for(var i=0;i<targetLength;i++){prefix+=padString;}
+return prefix+String(this);}};}
+function parseAyahSelection(value)
+{var tmpSelection=[];var ayahSelection=[];var tmp=value.split(',');for(var i=0;i<tmp.length;i++){if(tmp[i].indexOf('-')>-1){var tmp2=tmp[i].split('-');var start=parseInt(tmp2[0]);var end=parseInt(tmp2[1]);for(var j=start;j<=end;j++){tmpSelection.push(j);}
+continue;}
+tmpSelection.push(parseInt(tmp[i]));}
+for(var i=0;i<tmpSelection.length;i++){if(ayahSelection.indexOf(tmpSelection[i])!==-1){continue;}
+ayahSelection.push(tmpSelection[i]);}
+return ayahSelection.sort(function(a,b){return a-b;});}
+function isCookieExists(name,value)
+{if(document.cookie.split(';').filter(function(item){if(typeof value==='undefined'){return item.indexOf(name+'=')>=0;}
+return item.indexOf(name+'='+value)>=0;}).length){return true;}
+return false;};function writePermanentCookie(name,value,checkWithValue)
+{var currentYear=(new Date()).getFullYear()+3;var expires=(new Date(currentYear,12,12)).toUTCString();document.cookie=name+'='+value+';path=/;expires='+expires;};function applyNightMode(apply)
+{var nightModeCss={default:'nightmode',light:'nightmode-light',lineMenu:'nightmode-linemenu',linkBlend:'nightmode-link-blend'};var addOrRemoveNightMode=function(isNight,elClassName,nightName){var elements=document.getElementsByClassName(elClassName);if(!isNight){for(var i=0;i<elements.length;i++){elements[i].className=elements[i].className.replace(nightName,'');}
+return;}
+for(var i=0;i<elements.length;i++){elements[i].className=elements[i].className+' '+nightName;}};var targetElements=['ayah-text','surah-index','sidepage','ayah-number','footer','surah-index-link','linemenu','sidepage-item-link','page-heading','sidepage-item','icon-ayah-toolbar','goto-ayah','ayah-tafsir-title','surah-header-link','ayah-next','ayah-prev','search-keywords','murottal-reciter','sidepage-textbox-for-radio'];var targetCss=[nightModeCss.light,nightModeCss.light,nightModeCss.default,nightModeCss.default,nightModeCss.default,nightModeCss.linkBlend,nightModeCss.lineMenu,nightModeCss.linkBlend,nightModeCss.default,nightModeCss.default,nightModeCss.light,nightModeCss.default,nightModeCss.default,nightModeCss.linkBlend,nightModeCss.linkBlend,nightModeCss.linkBlend,nightModeCss.default,nightModeCss.default,nightModeCss.default];if(apply===false){document.body.className=document.body.className.replace(nightModeCss.default,'');for(var i=0;i<targetElements.length;i++){addOrRemoveNightMode(false,targetElements[i],targetCss[i]);}
+writePermanentCookie('nightMode','0');return;}
+document.body.className=document.body.className+' '+nightModeCss.default;for(var i=0;i<targetElements.length;i++){addOrRemoveNightMode(true,targetElements[i],targetCss[i]);}
+writePermanentCookie('nightMode','1');}
+function applyTranslation(apply)
+{var translationClass='ayah-translation';var cookieValue='1';if(apply===false){translationClass='ayah-translation hide';cookieValue='0'}
+var translationElements=document.getElementsByClassName('ayah-translation');for(var i=0;i<translationElements.length;i++){translationElements[i].className=translationClass;}
+writePermanentCookie('useTranslation',cookieValue);}
+function applyClickForBookmark()
+{var ayahNumberElements=document.getElementsByClassName('link-mark-ayah');var writeMarkedAyah=function(surahName,surahNumber,ayahNumber){var marked=confirm('Tandai sebagai terakhir dibaca Surah '+surahName+' ayat '+ayahNumber+'?');if(marked==false){return;}
+var lastReadCookieValue=surahName+','+surahNumber.toString()+','+ayahNumber.toString();writePermanentCookie('lastRead',lastReadCookieValue);document.getElementById('sidepage-item-last-marked').innerHTML='Surah '+surahName+' ayat '+ayahNumber;document.getElementById('last-read-link').href='https://quranweb.id/'+surahNumber+'/#no'+ayahNumber;};var ayahInfo;for(var i=0;i<ayahNumberElements.length;i++){ayahNumberElements[i].onclick=function(e)
+{ayahInfo=this.parentNode.parentNode.title.split(',');writeMarkedAyah(ayahInfo[0],ayahInfo[1],ayahInfo[2]);return false;}}
+if(!isCookieExists('lastRead')){return;}
+ayahInfo=document.cookie.replace(/(?:(?:^|.*;\s*)lastRead\s*\=\s*([^;]*).*$)|^.*$/,"$1").split(',');document.getElementById('sidepage-item-last-marked').innerHTML='Surah '+ayahInfo[0]+' ayat '+ayahInfo[2];document.getElementById('last-read-link').href='https://quranweb.id/'+ayahInfo[1]+'/#no'+ayahInfo[2];}
+function playAudioMurottal(surahNumber,ayahNumber,audioButton)
+{var reciterName=document.getElementById('murottal-reciter').value;var baseMurottalUrl='https://quranweb.id/murottal/'+reciterName+'/';var murottalFile=(parseInt(surahNumber)*1000+parseInt(ayahNumber)).toString();murottalFile=murottalFile.padStart(6,'0')+'.mp3';if(previousPlayedButton===audioButton&&!murottalAudioElement.ended){if(murottalAudioElement.paused){murottalAudioElement.play();audioButton.innerHTML='<span class="icon-content"><b>||</b></span>';}else{murottalAudioElement.pause();audioButton.innerHTML='<span class="icon-content">|&#x25b6;</span>';}
+return;}
+if(previousPlayedButton!==null){previousPlayedButton.innerHTML='<span class="icon-content">&#x25b6;</span>';}
+previousPlayedButton=audioButton;murottalAudioElement.src=baseMurottalUrl+murottalFile;murottalAudioElement.play();if(murottalLoopMode==='ayah'){murottalAudioElement.loop=true;}
+audioButton.innerHTML='<span class="icon-content"><b>||</b></span>';murottalAudioElement.myCustomData={surahNumber:surahNumber,ayahNumber:ayahNumber,audioButton:audioButton}
+murottalAudioElement.removeEventListener('ended',afterAudioDoneCallback,false);murottalAudioElement.addEventListener('ended',afterAudioDoneCallback,false);}
+function applyClickForMurottal()
+{var clickAudioElements=document.getElementsByClassName('murottal-audio-player');for(var i=0;i<clickAudioElements.length;i++){clickAudioElements[i].onclick=function(e)
+{playAudioMurottal(this.getAttribute('data-surah-number'),this.getAttribute('data-ayah-number'),this);}}
+var murottalOptionElements=document.getElementsByName('murottal-mode');for(var i=0;i<murottalOptionElements.length;i++){murottalOptionElements[i].onclick=function(e){murottalLoopMode=this.value;writePermanentCookie('murottalMode',this.value);if(this.value==='ayah'){murottalAudioElement.loop=true;return;}
+if(this.value==='ayah-selection'&&ayahSelection.length===0){return;}
+murottalAudioElement.loop=false;}
+if(isCookieExists('murottalMode',murottalOptionElements[i].value)){murottalOptionElements[i].checked=true;murottalLoopMode=murottalOptionElements[i].value;}}
+if(isCookieExists('ayahSelection')){var ayahSelectionInCookie=document.cookie.replace(/(?:(?:^|.*;\s*)ayahSelection\s*\=\s*([^;]*).*$)|^.*$/,"$1");document.getElementById('ayah-selection-input').value=ayahSelectionInCookie;ayahSelection=parseAyahSelection(ayahSelectionInCookie);}
+if(isCookieExists('reciterIndex')){var reciterIndex=document.cookie.replace(/(?:(?:^|.*;\s*)reciterIndex\s*\=\s*([^;]*).*$)|^.*$/,"$1");document.getElementById('murottal-reciter').selectedIndex=parseInt(reciterIndex);}}
+document.getElementById('murottal-reciter').onchange=function(e)
+{writePermanentCookie('reciterIndex',this.selectedIndex);}
+document.getElementById('ayah-selection-input').onkeyup=function(e)
+{var ayatRegex=new RegExp(/^[0-9]+(?:-[0-9]+)?(,[0-9]+(?:-[0-9]+)?)*$/gm);if(!ayatRegex.test(this.value)){this.className=this.className.replace(' input-error','')+' input-error';return;}
+this.className=this.className.replace(' input-error','');ayahSelection=parseAyahSelection(this.value);writePermanentCookie('ayahSelection',this.value);}
+var gotoAyahElement=document.getElementById('goto-ayah');var onAyahPage=false;if(gotoAyahElement!==null){gotoAyahElement.onchange=function(e){window.location.href=this.value;}
+var gotoTafsirAyahElement=document.getElementsByClassName('goto-ayah-tafsir');if(gotoTafsirAyahElement.length>0){onAyahPage=true;var currentAyah=parseInt(window.location.pathname.split('../index-2.html')[2]);var optionsEl=gotoTafsirAyahElement[0].options;for(var i=0;i<optionsEl.length;i++){if(currentAyah-1===i){optionsEl[i].selected=true;}}}}
+document.getElementById('translation').onclick=function(e)
+{if(this.checked){applyTranslation(true);return;}
+applyTranslation(false);}
+document.getElementById('nightmode').onclick=function(e)
+{if(this.checked){applyNightMode(true);return;}
+applyNightMode(false);}
+var searchElement=document.getElementById('search-keywords');if(searchElement!==null){document.getElementById('search-keywords').onkeyup=function(e)
+{var surahList=document.getElementsByClassName('surah-index-link');var keyword=this.value.toLowerCase();for(var i=0;i<surahList.length;i++){surahList[i].parentNode.style.display='block';if(surahList[i].getAttribute('data-keywords').toLowerCase().indexOf(keyword)===-1){surahList[i].parentNode.style.display='none';}}}}
+document.addEventListener('DOMContentLoaded',function(e)
+{applyClickForBookmark();applyClickForMurottal();if(isCookieExists('nightMode','1')){applyNightMode(true);document.getElementById('nightmode').checked=true;}
+if(isCookieExists('nightMode','0')){applyNightMode(false);document.getElementById('nightmode').checked=false;}
+if(!onAyahPage){if(isCookieExists('useTranslation','0')){applyTranslation(false);document.getElementById('translation').checked=false;}}
+if(onAyahPage){document.getElementById('translation').disabled=true;}});</script>
